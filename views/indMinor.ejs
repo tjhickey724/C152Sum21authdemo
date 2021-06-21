@@ -1,0 +1,26 @@
+
+
+  <div class="jumbotron">
+    <h1> Minors for  for <%= user.googlename %> </h1>
+    <p> Here are your minors </p>
+
+
+    <ul>
+      <% indMinors.forEach(im => { %>
+          <li>
+                <a href="/im/<%= im._id %>">
+                    <%= im.title %>
+                </a> <br>
+               <%= im.createdAt %>
+          </li>
+      <% }) %>
+    </ul>
+
+
+
+      <form method="post" action="/im">
+          new minor title: <input type="text" name="title"><br>
+          <input type="submit" value="add minor">
+      </form>
+
+  </div>

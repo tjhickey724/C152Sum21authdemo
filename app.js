@@ -28,6 +28,8 @@ const usersRouter = require('./routes/users');
 const toDoRouter = require('./routes/todo');
 const toDoAjaxRouter = require('./routes/todoAjax');
 
+const indMinorRouter = require('./routes/indMinor');
+
 
 
 const app = express();
@@ -52,6 +54,8 @@ app.use('/users', usersRouter);
 
 app.use('/todo',toDoRouter);
 app.use('/todoAjax',toDoAjaxRouter);
+
+app.use('/im',indMinorRouter);
 
 const myLogger = (req,res,next) => {
   console.log('inside a route!')
