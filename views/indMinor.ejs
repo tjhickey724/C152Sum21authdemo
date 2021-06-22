@@ -1,8 +1,8 @@
 
 
   <div class="jumbotron">
-    <h1> Minors for  for <%= user.googlename %> </h1>
-    <p> Here are your minors </p>
+    <h1> Minors</h1>
+    <p> Here are the Independent Minors </p>
 
 
     <ul>
@@ -10,7 +10,15 @@
           <li>
                 <a href="/im/<%= im._id %>">
                     <%= im.title %>
-                </a> <br>
+                </a>
+                <a href="/im/delete/<%= im._id %>">
+                    X
+                </a>
+                <% if (im.ownerId == user.id) {%>
+                    (OWNER)
+                <% } %>
+
+                <br>
                <%= im.createdAt %>
           </li>
       <% }) %>
