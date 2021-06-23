@@ -16,7 +16,10 @@
     <tr>
       <td><%= apikey.domainName %></td>
       <td><%= apikey.apikey %></td>
-      <td> <a href="/apikeyremove/<%= apikey._id %>"> X </a>
+      <td>
+          <% if (user.id==apikey.userId) {%>
+              <a href="/apikeyremove/<%= apikey._id %>"> X </a>
+          <%}%>
           <%= apikey.userId %>
       </td>
 

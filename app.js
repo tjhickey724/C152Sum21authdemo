@@ -172,10 +172,33 @@ app.post("/apikey",
 
 app.get('/apikeys', isLoggedIn,
   async (req,res,next) => {
-    res.locals.apikeys = await APIKey.find({})
+    res.locals.apikeys = await APIKey.find({userId:req.user._id})
     console.log('apikeys='+JSON.stringify(res.locals.apikeys.length))
     res.render('apikeys')
   })
+
+app.get('/allapikeys', isLoggedIn,
+    async (req,res,next) => {
+      res.locals.apikeys = await APIKey.find({})
+      console.log('apikeys='+JSON.stringify(res.locals.apikeys.length))
+      res.render('apikeys')
+    })
+
+app.get('/apikeys/last/:N', isLoggedIn,
+    async (req,res,next) => {
+      const N = parseInt(req.params.N)
+      const apikeys = await APIKey.find({})
+      res.locals.apikeys = apikeys.slice(0,N)
+      console.log('apikeys='+JSON.stringify(res.locals.apikeys.length))
+      res.render('apikeys')
+    })
+
+app.get('/apikeys/:domainName', isLoggedIn,
+    async (req,res,next) => {
+      res.locals.apikeys = await APIKey.find({domainName:req.params.domainName})
+      console.log('apikeys='+JSON.stringify(res.locals.apikeys.length))
+      res.render('apikeys')
+    })
 
 app.get('/apikeyremove/:apikey_id', isLoggedIn,
   async (req,res,next) => {
