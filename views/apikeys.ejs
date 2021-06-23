@@ -14,9 +14,14 @@
       console.log(`i=${i} document=${apikey}`)
   %>
     <tr>
-      <td><%= apikey.domainName %></td>
+      <td> <!-- click on domainName and see all keys with that domainName  -->
+        <a href="/apikeys/<%= apikey.domainName %>">
+          <%= apikey.domainName %>
+        </a>
+      </td>
       <td><%= apikey.apikey %></td>
       <td>
+          <!--  only the owner can delete an apikey  -->
           <% if (user.id==apikey.userId) {%>
               <a href="/apikeyremove/<%= apikey._id %>"> X </a>
           <%}%>
