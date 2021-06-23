@@ -10,6 +10,8 @@
       %>
         <li>
           <%= course.course %>
+          <hr>
+          <%= course.description %>
           <% if (course.ownerId==user.id) {%> (*)<%}%>
         </li>
       <%}%>

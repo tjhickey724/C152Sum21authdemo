@@ -57,6 +57,7 @@ router.post('/',
       const im = new IndMinor(
         {title:req.body.title,
          createdAt: new Date(),
+         description:req.body.description,
          ownerId: req.user._id,
         })
       await im.save();

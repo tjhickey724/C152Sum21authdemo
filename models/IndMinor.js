@@ -7,6 +7,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 var indMinorSchema = Schema( {
   ownerId: ObjectId,
   title: String,
+  description:String,
   createdAt: Date,
 } );
 

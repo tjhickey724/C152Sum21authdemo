@@ -1,0 +1,35 @@
+
+
+  <div class="jumbotron">
+
+  <h1> APIKey demo </h1>
+  <h2>List of all API keys </h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr><th>domainName</th><th>apikey</th><th>userId</th></tr>
+    </thead>
+    <tbody>
+  <% for(let i=0; i<apikeys.length; i++){
+      apikey = apikeys[i]
+      console.log(`i=${i} document=${apikey}`)
+  %>
+    <tr>
+      <td><%= apikey.domainName %></td>
+      <td><%= apikey.apikey %></td>
+      <td> <a href="/apikeyremove/<%= apikey._id %>"> X </a>
+          <%= apikey.userId %>
+      </td>
+
+    </tr>
+  <%}%>
+
+  <h2>Add another APIKey?</h2>
+
+  <form method="post" action="/apikey">
+    <input type="text" name="domainName"> domainName <br>
+    <input type="text" name="apikey"> apiKey <br>
+    <input type="submit">
+  </form>
+  </div>
+
+  <!-- Hello World! -->

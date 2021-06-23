@@ -8,6 +8,7 @@ const layouts = require("express-ejs-layouts");
 //const auth = require('./config/auth.js');
 
 
+
 const mongoose = require( 'mongoose' );
 //mongoose.connect( `mongodb+srv://${auth.atlasAuth.username}:${auth.atlasAuth.password}@cluster0-yjamu.mongodb.net/authdemo?retryWrites=true&w=majority`);
 mongoose.connect( 'mongodb://localhost/authDemo');
@@ -20,6 +21,8 @@ db.once('open', function() {
   console.log("we are connected!!!")
 });
 
+const User = require('./models/User');
+
 const authRouter = require('./routes/authentication');
 const isLoggedIn = authRouter.isLoggedIn
 const loggingRouter = require('./routes/logging');
@@ -29,6 +32,7 @@ const toDoRouter = require('./routes/todo');
 const toDoAjaxRouter = require('./routes/todoAjax');
 
 const indMinorRouter = require('./routes/indMinor');
+
 
 
 
@@ -132,7 +136,7 @@ app.use('/data',(req,res) => {
   res.json([{a:1,b:2},{a:5,b:3}]);
 })
 
-const User = require('./models/User');
+
 
 app.get("/test",async (req,res,next) => {
   try{
@@ -143,6 +147,45 @@ app.get("/test",async (req,res,next) => {
   }
 
 })
+
+app.get("/apikey", async (req,res,next) => {
+  res.render('apikey')
+})
+
+const APIKey = require('./models/APIKey')
+
+app.post("/apikey",
+  isLoggedIn,
+  async (req,res,next) => {
+    const domainName = req.body.domainName
+    const apikey = req.body.apikey
+    const apikeydoc = new APIKey({
+      userId:req.user._id,
+      domainName:domainName,
+      apikey:apikey
+    })
+    const result = await apikeydoc.save()
+    console.log('result=')
+    console.dir(result)
+    res.redirect('/apikeys')
+})
+
+app.get('/apikeys', isLoggedIn,
+  async (req,res,next) => {
+    res.locals.apikeys = await APIKey.find({})
+    console.log('apikeys='+JSON.stringify(res.locals.apikeys.length))
+    res.render('apikeys')
+  })
+
+app.get('/apikeyremove/:apikey_id', isLoggedIn,
+  async (req,res,next) => {
+
+    const apikey_id = req.params.apikey_id
+    console.log(`id=${apikey_id}`)
+    await APIKey.deleteOne({_id:apikey_id})
+    res.redirect('/apikeys')
+
+  })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
