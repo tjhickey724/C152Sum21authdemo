@@ -1,0 +1,41 @@
+
+
+  <div class="jumbotron">
+    <h1> Pomodoros </h1>
+
+    <h2>start working on a new pomodoro</h2>
+    <form method="post" action="/pomodorosANSWER">
+        <input type="text" size="60" name="startedAt" >startedAt<br>
+        <input type="text" size="60" name="goal">goal<br>
+        <input type="text" size="60" name="result">result<br>
+        <input type="text" size="60" name="completedAt">completedAt<br>
+        <input type="submit" value="press when pomodoro is completed (about 30 minutes)">
+    </form>
+
+
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>goal</th><th>result</th>
+                <th>started</th><th>completed</th></tr>
+        </thead>
+        <tbody>
+            <% pomodoros.forEach(item => {%>
+                <tr>
+                    <td><%= item.goal %></td>
+                    <td><%= item.result %></td>
+                    <td><%= item.startedAt %></td>
+                    <td><%= item.completedAt %></td>
+                </tr>
+
+            <% }) %>
+        </tbody>
+      </table>
+
+
+
+
+
+  </div>

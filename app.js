@@ -66,6 +66,43 @@ const myLogger = (req,res,next) => {
   next()
 }
 
+// *************************************
+
+const PomodoroANSWER = require('./models/PomodoroANSWER')
+
+app.get('/pomodorosANSWER',isLoggedIn,
+  async (req,res,next) => {
+    res.locals.pomodoros = await PomodoroANSWER.find({userId:req.user._id})
+    res.render('pomodorosANSWER')
+  }
+)
+
+app.post('/pomodorosANSWER',
+  isLoggedIn,
+  async (req,res,next) => {
+
+    const pomdata = {
+      goal:req.body.goal,
+      result:req.body.result,
+      completedAt: req.body.completedAt,
+      startedAt: req.body.startedAt,
+      userId: req.user._id,
+    }
+    console.dir(pomdata)
+    const newPomodoro = new PomodoroANSWER(pomdata)
+    await newPomodoro.save()
+    res.redirect('/pomodorosANSWER')
+  }
+)
+
+app.get('/pomodoros/clear',isLoggedIn,
+  async (req,res,next) => {
+    await Pomodoro.deleteMany({userId:req.user._id})
+    res.redirect('/pomodoros')
+  }
+)
+
+
 app.get('/testing',
   myLogger,
   isLoggedIn,
