@@ -88,9 +88,9 @@ app.post('/pomodorosANSWER',
       startedAt: req.body.startedAt,
       userId: req.user._id,
     }
-    console.dir(pomdata)
     const newPomodoro = new PomodoroANSWER(pomdata)
     await newPomodoro.save()
+
     res.redirect('/pomodorosANSWER')
   }
 )
