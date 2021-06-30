@@ -3,4 +3,4 @@ dist
 auth*
 .DS_Store
 images
-testing
+testing/
