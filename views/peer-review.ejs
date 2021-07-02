@@ -1,0 +1,44 @@
+
+
+  <div class="jumbotron">
+    <h1> CS153a Peer Review </h1>
+
+    <h2>Review a student's work</h2>
+    <form method="post" action="/peerReview">
+        <input type="text" size="60" name="student" >student <br>
+        <textarea name="review"></textarea>
+        <input type="submit">
+    </form>
+
+
+    <ul>
+        <% students.forEach(student => {%>
+            <li><a href="/showReviews/<%= student._id %>"><%= student.googlename %><li>
+        <% } %>
+    </ul>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>goal</th><th>result</th>
+                <th>started</th><th>completed</th></tr>
+        </thead>
+        <tbody>
+            <% pomodoros.forEach(item => {%>
+                <tr>
+                    <td><%= item.goal %></td>
+                    <td><%= item.result %></td>
+                    <td><%= item.startedAt %></td>
+                    <td><%= item.completedAt %></td>
+                </tr>
+            <% }) %>
+
+        </tbody>
+      </table>
+
+
+
+
+
+
+  </div>
